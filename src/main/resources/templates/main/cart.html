@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니 페이지</title>
+    <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/main/home.css}" href="../../static/css/main/cart.css">
+</head>
+<body>
+    <th:block th:replace="~{header :: header}"></th:block>
+    <main>
+        <div id="order-proceed-container">
+            <h2>장바구니 (<span>2</span>)</h2>
+            <ul>
+                <li><span class="order-proceed-number">1</span><span>장바구니</span></li>
+                <li><span class="order-proceed-number">2</span><span>주문/결제</span></li>
+                <li><span class="order-proceed-number">3</span><span>주문완료</span></li>
+            </ul>
+        </div>
+
+        <div id="cart-result-container">
+            <div>
+                <i class="fa-regular fa-circle-check"></i>
+                <span>전체</span>
+            </div>
+            <div>
+                <span id="heart-all-btn" class="cart-result-sub-btn"><i class="fa-solid fa-heart"></i></span>
+                <span id="remove-all-btn" class="cart-result-sub-btn"><i class="fa-regular fa-trash-can"></i></span>
+            </div>
+        </div>
+
+        <div id="book-cart-container">
+            <section class="book-info-container">
+                <i class="fa-regular fa-circle-check"></i>
+                <img src="" alt="이미지">
+                <div class="book-info">
+                    <div>titletitletitletitltitletitletitletitletitletitletitle</div>
+                    <span><b>price</b>원</span>
+                </div>
+                <div class="book-info-price-container">
+                    <div><b>22222</b>원</div>
+                    <div class="book-info-count-container">
+                        <i class="fa-solid fa-minus"></i>
+                        <input type="number" value="1">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <div id="order-info-container">
+            <div><span>상품금액</span><span>50,500원</span></div>
+            <div><span>배송비</span><span>+0원</span></div>
+            <hr>
+            <div><b>결제 예정 금액</b><b>50,500원</b></div>
+            <input type="button" value="주문하기(2)">
+        </div>
+
+    </main>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

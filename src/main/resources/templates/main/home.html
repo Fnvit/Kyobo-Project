@@ -1,46 +1,34 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
     <meta charset="UTF-8">
     <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
     <title>KOREAIT KYOBO 교보문고</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
-    <script th:src="@{/js/main.js}" src="../static/js/main.js" defer></script>
+    <link rel="stylesheet" th:href="@{/css/main/home.css}">
+    <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/main.js}" defer></script>
 </head>
 <body>
-    <header>
-        <a><img src="" alt="메인페이지로고"></a>
-        <div>
-            통합검색: <input type="text" placeholder="검색어를 입력하세요" /> <input type="button">
-        </div>
-        <nav>
-            <th:block sec:authorize="!isAuthenticated()">
-                <ul>
-                    <li><a href="/user/login">로그인</a></li>
-                    <li><a href="/user/register">회원가입</a></li>
-                </ul>
-            </th:block>
-            <th:block sec:authorize="isAuthenticated()">
-                <ul>
-                    <li><a href="/user/logout">로그아웃</a></li>
-                    <li><a href="/user/cart">장바구니</a></li>
-                    <li><a href="/user/mypage">마이페이지</a></li>
-                </ul>
-            </th:block>
-        </nav>
-    </header>
-
+    <th:block th:replace="~{header :: header}"></th:block>
     <main>
         <section id="search-result-container">
-            <span>전체 12345건</span>
             <div>
-                <input id="heart-all-btn" type="button" value="하트" onclick="insert_heart_cart_checked(this)">
-                <input id="cart-all-btn" type="button" value="장바구니 담기" onclick="insert_heart_cart_checked(this)">
-                <select>
+                <b>전체</b><span id="search-result-count">12345</span><b>건</b></div>
+            <div>
+                <span id="heart-all-btn" class="search-result-sub-btn" th:onclick="insert_heart_cart_checked([[${#authentication.getName()}]], this)"><i class="fa-solid fa-heart"></i></span>
+                <span id="cart-all-btn" class="search-result-sub-btn" th:onclick="insert_heart_cart_checked([[${#authentication.getName()}]], this)">
+                    <img src="../../static/image/main/buttons/btn_header_cart.png" alt="">장바구니 담기
+                </span>
+                <select class="search-result-sub-btn">
+                    <option value="">인기순</option>
+                    <option value="">판매량순</option>
+                    <option value="">최신순</option>
+                    <option value="">상품명순</option>
+                </select>
+                <select class="search-result-sub-btn">
                     <option value="">2개씩 보기</option>
                     <option value="">3개씩 보기</option>
                     <option value="">5개씩 보기</option>

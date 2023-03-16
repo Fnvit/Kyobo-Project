@@ -1,0 +1,185 @@
+*{
+    margin: 0;
+    padding: 0;
+    --font-size: 0.85em;
+}
+
+main{
+    display: grid;
+    width: 65vw;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    grid-template-areas:
+        "proceed proceed"
+        "result none"
+        "cart order";
+    grid-template-columns: 75% 25%;
+    gap: 1.5em 3em;
+}
+
+main > section{
+    display: inline-block;
+    width: 80%;
+}
+
+input, select {
+    font-size: var(--font-size);
+    padding: 0.2em 0.35em;
+}
+
+select{
+    cursor: pointer;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+/*************************/
+#order-proceed-container{
+    grid-area: proceed;
+    display: flex;
+    margin: 1em 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#order-proceed-container li{
+    display: inline;
+    margin-left: 0.2em;
+}
+
+#order-proceed-container li span{
+    margin-left: 0.2em;
+}
+
+.order-proceed-number{
+    display: inline-block;
+    color: white;
+    font-weight: bold;
+    width: 1.4em;
+    height: 1.4em;
+    text-align: center;
+    background-color: mediumseagreen;
+    border-radius: 50%;
+}
+
+/**************************************/
+#cart-result-container{
+    grid-area: result;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 1em;
+    background-color: #EEE8;
+    border-radius: 0.5em;
+}
+
+.cart-result-sub-btn{
+    border: 1px solid lightgray;
+    border-radius: 0.3em;
+    padding: 0.2em 0.5em;
+    cursor: pointer;
+    background-color: white;
+    margin: 0 0.1em;
+}
+/*********************************/
+#book-cart-container{
+    grid-area: cart;
+}
+
+.book-info-container{
+    display: grid;
+    box-sizing: border-box;
+    width: 100%;
+    grid-template-columns: 1fr 1.5fr 6fr 1.5fr;
+    padding: 1em 0.5em;
+    height: 7em;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.book-info-container > i{
+    display: inline-block;
+}
+.book-info-container > img{
+    display: inline-block;
+}
+.book-info-container > div:nth-child(3){
+    display: inline-block;
+    padding: 0 0.5em;
+}
+.book-info-container > div:nth-child(4){
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0.5em;
+    text-align: center;
+}
+
+.book-info-count-container{
+    display: flex;
+    margin-top: 0.5em;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 0.2em;
+    border: 1px solid #CCC;
+}
+
+.book-info-count-container > input{
+    display: inline-block;
+    text-align: center;
+    border: none;
+    background-color: white;
+    width: 10px;
+    font-weight: bold;
+}
+
+.book-info-count-container i{
+    font-size: small;
+    cursor: pointer;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/**********************************/
+#order-info-container{
+    grid-area: order;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5em;
+    border: 1px solid #CCC;
+    padding: 1em;
+}
+#order-info-container hr{
+    color: #CCC;
+    margin: 0.4em 0;
+}
+#order-info-container > div{
+    display: flex;
+    justify-content: space-between;
+    margin: 0.4em 0;
+}
+#order-info-container > div:nth-child(4){
+    margin: 1em 0;
+}
+#order-info-container > input{
+    border: none;
+    padding: 0.7em 0;
+    border-radius: 0.2em;
+    background-color: midnightblue;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+
+
+
+
+
+

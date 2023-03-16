@@ -1,35 +1,26 @@
-body{
-    width: 80vw;
+*{
+    margin: 0;
+    padding: 0;
+    --font-size: 0.85em;
+}
+
+main{
+    width: 65vw;
     margin: 0 auto;
 }
+
 input, select {
-    font-size: 0.8em;
+    font-size: var(--font-size);
     padding: 0.2em 0.35em;
 }
+select{
+    cursor: pointer;
+}
+
 a{
     color: black;
     text-decoration: none;
 }
-
-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    margin-bottom: 1em;
-    font-size: 1.5em;
-}
-
-header > div {
-    display: flex;
-    align-items: center;
-}
-
-header li{
-    display: inline;
-}
-
 /*******************************/
 #search-result-container{
     display: flex;
@@ -39,6 +30,29 @@ header li{
     border-bottom: 1px solid black;
     font-size: 1.3em;
 }
+#search-result-container > div{
+    display: flex;
+    align-items: center;
+}
+
+#cart-all-btn{
+    display: inline-flex;
+    align-items: center;
+}
+
+.search-result-sub-btn{
+    border: 1px solid black;
+    border-radius: 0.3em;
+    padding: 0.2em 0.5em;
+    cursor: pointer;
+    margin: 0 0.3em;
+}
+select.search-result-sub-btn{
+    padding: 0.4em 0.5em;
+}
+#cart-all-btn img{
+    width: 1.2em;
+}
 
 /********************************/
 #book-result-container{
@@ -47,6 +61,11 @@ header li{
     grid-template-columns: repeat(4, 25%);
     row-gap: 1em;
     font-size: 1.2em;
+}
+
+#search-result-count{
+    font-weight: bold;
+    color: mediumseagreen;
 }
 
 .book-info-container {

@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    --font-size: 0.85em;
+}
+
+header{
+    width: 80vw;
+    margin: 0 auto;
+}
+
+input, select {
+    font-size: var(--font-size);
+    padding: 0.2em 0.35em;
+}
+select{
+    cursor: pointer;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    font-size: 1.5em;
+}
+
+header > img{
+    width: 10em;
+}
+
+header nav ul{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header nav li{
+    margin: 0 0.3em;
+}
+
+.user-logout{
+    font-size: 1.2em;
+}
+
+.user-cart img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.user-mypage img{
+    width: 2em;
+    height: 2em;
+}
+
+#search-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4em 0.5em;
+    border: 1px solid midnightblue;
+    width: 15em;
+}
+
+#search-input > input{
+    border: none;
+    outline: none; /*클릭 시 외부 테두리*/
+}
+
+#search-input > i{
+    margin: 0 0.2em;
+}
+
+header ul{
+    display: inline-flex;
+    width: 7em;
+    align-items: center;
+    text-align: center;
+}
+
+header li{
+    display: inline-block;
+    flex: 1;
+}
