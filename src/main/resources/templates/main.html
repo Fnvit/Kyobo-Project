@@ -6,12 +6,12 @@
 >
 <head>
     <meta charset="UTF-8">
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
     <title>KOREAIT KYOBO 교보문고</title>
     <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
     <script th:src="@{/js/main.js}" src="../static/js/main.js" defer></script>
 </head>
 <body>
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <header>
         <a><img src="" alt="메인페이지로고"></a>
         <div>

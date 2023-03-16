@@ -1,14 +1,15 @@
 package com.kyobo.koreait.controller;
 
+import com.kyobo.koreait.domain.dtos.CartDTO;
+import com.kyobo.koreait.domain.dtos.UserDTO;
 import com.kyobo.koreait.domain.vos.BookVO;
 import com.kyobo.koreait.service.MainService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -35,8 +36,12 @@ public class MainController {
 
     @ResponseBody
     @PostMapping("/main/cart")
-    public boolean insert_cart(@RequestParam("bookArray") List<BookVO> bookVOS){
-        mainService.insert_cart(bookVOS);
+    public boolean insert_cart(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody List<CartDTO> cartDTOS
+    ){
+        log.info(" ==== insert_cart ==== ");
+        mainService.insert_cart(userDetails, cartDTOS);
 
         return false;
     }

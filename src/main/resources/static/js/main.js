@@ -1,3 +1,4 @@
+const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
 const bookResultContainer = document.getElementById('book-result-container');
 const cartAllBtn = document.getElementById('cart-all-btn');
 
@@ -9,11 +10,9 @@ cartAllBtn.addEventListener('click', () => {
     for(container of bookInfoContainer){
         const bookInfoCheck = container.getElementsByClassName('book-info-check').item(0);
         //체크박스가 선택되어 있다면
-        if(bookInfoCheck){
+        if(bookInfoCheck.value === 'on'){
             const bookInfoISBN = container.getElementsByClassName('book-info-isbn').item(0);
-            bookISBNArray.push(bookInfoISBN.value);
-            console.log(bookInfoCheck.value)
-            // console.log(bookInfoISBN);
+            bookISBNArray.push({isbn : bookInfoISBN.value});
         }
     }
     //내가 넣은 배열에 아무것도 들어있지 않다면
@@ -26,23 +25,17 @@ cartAllBtn.addEventListener('click', () => {
 
 //책을 장바구니에 넣는 메소드
 function insert_cart(bookISBNArray){
-    const request =  new XMLHttpRequest();
-    request.open('POST', '/main/cart');
-    request.setRequestHeader('content-Type', 'application/json');
-    request.send(JSON.stringify({bookArray: bookISBNArray}));
-    request.onload =()=>{
-        console.log(request.response);
-    }
-
-    //
-    // fetch('/main/cart', {
-    //         method: 'POST',
-    //         headers: {"content-Type": 'application/json'},
-    //         body: JSON.stringify({bookArray: bookISBNArray})
-    //     })
-    //     .then(value => value.text())
-    //     .then(value => { console.log(value); })
-    //     .catch(reason => { console.log(reason); });
+    fetch('/main/cart', {
+            method: 'POST',
+            headers: {
+                "content-Type": 'application/json',
+                "X-CSRF-TOKEN": csrfToken
+            },
+            body: JSON.stringify(bookISBNArray)
+        })
+        .then(value => value.text())
+        .then(value => { console.log(value); })
+        .catch(reason => { console.log(reason); });
 }
 
 // 모든 책의 정보를 가져오는 메소드
@@ -53,12 +46,22 @@ function get_books(){
         .catch();
 }
 
+function checkBox_clicked(checkBox){
+    checkBox.onclick = () => {
+        if(checkBox.value === 'off'){
+            checkBox.value = 'on';
+        }else{
+            checkBox.value = 'off';
+        }
+    }
+}
+
 function create_book_list(bookList){
     for(book of bookList){
         bookResultContainer.insertAdjacentHTML('beforeend',
             '<div class="book-info-container">\n' +
             `<input type="hidden" class="book-info-isbn" value="${book.isbn}">` +
-            '                <span><input class="book-info-check" type="checkbox" value="checked"></span>\n' +
+            '                <span><input class="book-info-check" type="checkbox" value="off" onclick="checkBox_clicked(this)"></span>\n' +
             '                <img src="" alt="상품이미지">\n' +
             `                <a href="#" class="book-info-title">${book.title}</a>\n` +
             '                <span>\n' +
