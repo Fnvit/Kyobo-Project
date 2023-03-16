@@ -1,0 +1,59 @@
+form{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 50px auto;
+    font-size: 1.1em;
+}
+h1{
+    text-align: center;
+}
+input{
+    display: inline-block;
+    font-size: 1.1em;
+    padding: 0.7em 0.3em;
+}
+#user-input{
+    display: flex;
+    flex-direction: column;
+}
+#social-login-box{
+    text-align: center;
+}
+.input-box{
+    margin: 1em 0;
+}
+
+#remember-button{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+#remember-button > a{
+    color: #666;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+#login-btn{
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.3em;
+    background-color: gray;
+}
+
+#register-btn{
+    color: mediumblue;
+    font-weight: bold;
+    background-color: white;
+    border: 2px solid mediumblue;
+    border-radius: 0.3em;
+}
+
+
+
+
+
+
+

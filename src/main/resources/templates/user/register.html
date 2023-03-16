@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입페이지</title>
+    <link rel="stylesheet" th:href="@{/css/user/register.css}" href="../../static/css/user/register.css">
+    <script th:src="@{/js/user/register.js}" src="../../static/js/user/register.js" defer></script>
+</head>
+<body>
+    <form th:action="@{/user/register}" th:method="post">
+        <h1>교보문고 회원가입</h1>
+        <div>
+            <span>아이디(이메일)</span><br/>
+            <div id="user-email-div">
+                <input class="user-input" type="email" name="email">
+                <input class="user-btn" type="button" value="중복체크" onclick="email_authenticate()">
+            </div>
+        </div>
+        <div>
+            <span>비밀번호</span>  <input class="user-input" type="text" name="password">
+        </div>
+        <div>
+            <span>비밀번호 재확인</span>  <input class="user-input" type="text">
+        </div>
+        <div>
+            <span>이름</span>  <input class="user-input" type="text" name="name">
+        </div>
+        <div>
+            <span>생년월일</span> <br/>
+            <div id="user-birth-div">
+                <input class="user-input" type="text" placeholder="년(4자)" maxlength="4">
+                <select class="user-input" id="user-month">
+                    <option selected disabled>월</option>
+                </select>
+                <select class="user-input" id="user-day">
+                    <option selected disabled>일</option>
+                </select>
+                <input type="hidden" name="birth">
+            </div>
+        </div>
+        <div>
+            <span>휴대전화</span> <br/>
+            <div id="user-phone-div">
+                <input class="user-input" type="text" maxlength="11" placeholder="전화번호 입력"> <input class="user-btn" type="button" value="인증번호 받기" onclick="phoneNumber_authenticate()">
+                <input type="hidden" name="phone">
+            </div>
+            <div id="user-phone-authenticate-div">
+                <input class="user-input" type="text" placeholder="인증번호 입력하세요"> <input class="user-btn" type="button" value="확인" onclick="phoneNumber_authenticate_confirm()">
+            </div>
+        </div>
+        <div id="user-confirm-btn-div">
+            <input class="user-btn" type="button" value="가입하기">
+            <input class="user-btn" type="button" value="돌아가기">
+        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    </form>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

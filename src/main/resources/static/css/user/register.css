@@ -1,0 +1,49 @@
+body{
+    background-color: #EEE;
+}
+form{
+    width: 500px;
+    margin: auto;
+    font-size: 1.5em;
+}
+h1{
+    text-align: center;
+    color: limegreen;
+}
+input{
+    margin: 0.3em 0;
+    padding: 0.2em 0.1em;
+    font-size: 1.1em;
+}
+
+select{
+    font-size: 1em;
+    padding: 0.2em 0.1em;
+}
+
+.user-input, .user-btn{
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+}
+
+.user-btn{
+    color: white;
+    background-color: limegreen;
+    border: none;
+    cursor: pointer;
+}
+#user-birth-div, #user-phone-div, #user-email-div{
+    display: flex;
+    align-items: center;
+}
+
+#user-birth-div > .user-input:nth-child(2){
+    margin: 0 10px;
+}
+
+#user-email-div > .user-btn, #user-phone-div > .user-btn{
+    margin-left: 10px;
+    flex-shrink: 2;
+}
+
