@@ -1,6 +1,7 @@
 package com.kyobo.koreait.service;
 
 import com.kyobo.koreait.domain.dtos.CartDTO;
+import com.kyobo.koreait.domain.dtos.HeartDTO;
 import com.kyobo.koreait.domain.vos.BookVO;
 import com.kyobo.koreait.mapper.MainMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,17 @@ public class MainService {
     }
 
     //장바구니추가
-    public boolean insert_cart(UserDetails userDetails, List<CartDTO> cartDTOS){
+    public boolean insert_books_in_cart(UserDetails userDetails, List<CartDTO> cartDTOS){
         cartDTOS.parallelStream().forEach(cartDTO -> cartDTO.setUserEmail(userDetails.getUsername()));
-
-        return mapper.insert_cart(cartDTOS);
+        return mapper.insert_books_in_cart(cartDTOS);
     }
+
+    //찜하기
+    public boolean insert_books_in_heart(UserDetails userDetails, List<HeartDTO> heartDTOS){
+        heartDTOS.parallelStream().forEach(heartDTO -> heartDTO.setUserEmail(userDetails.getUsername()));
+        return mapper.insert_books_in_heart(heartDTOS);
+    }
+    
 }
 
 
