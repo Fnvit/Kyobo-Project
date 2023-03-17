@@ -21,13 +21,7 @@ const [registerBtn, cancelBtn] = [...document.getElementById('user-confirm-btn-d
 registerBtn.addEventListener('click', () => {
     //create userBirthValue
     userBirthInput.value = userYearInput.value + '-' + userMonthSelect.value + '-' + userDaySelect.value;
-    const userPhoneValue = userPhoneInput.value;
-    const userPhoneLength = userPhoneValue.length;
-    userPhoneRInput.value =
-    userPhoneLength === 11 ?
-        userPhoneValue.substring(0, 3) + '-' + userPhoneValue.substring(3, 7) + '-' + userPhoneValue.substring(7, 11) :
-        userPhoneValue.substring(0, 3) + '-' + userPhoneValue.substring(3, 6) + '-' + userPhoneValue.substring(6, 10);
-    console.log(userPhoneRInput.value);
+    userPhoneRInput.value = userPhoneInput.value;
     registForm.submit(); //do register
 });
 
@@ -42,6 +36,7 @@ cancelBtn.addEventListener('click', () => {
 create_user_month_value();
 create_user_day_value();
 
+//생년월일에서 월 생성 (select)
 function create_user_month_value(){
     for (let i = 1; i <= 12; i++) {
         i = i >= 10 ? i : '0' + i;
@@ -51,7 +46,7 @@ function create_user_month_value(){
         );
     }
 }
-
+//생년월일에서 일 생성 (select)
 function create_user_day_value(){
     for (let i = 1; i <= 31; i++) {
         i = i >= 10 ? i : '0' + i;
@@ -61,6 +56,16 @@ function create_user_day_value(){
         );
     }
 }
+//휴대폰 번호 사이에 - 넣기 (현재 사용하지 않음)
+function create_user_phone_value(){
+    const userPhoneValue = userPhoneInput.value;
+    const userPhoneLength = userPhoneValue.length;
+    userPhoneRInput.value =
+        userPhoneLength === 11 ?
+            userPhoneValue.substring(0, 3) + '-' + userPhoneValue.substring(3, 7) + '-' + userPhoneValue.substring(7, 11) :
+            userPhoneValue.substring(0, 3) + '-' + userPhoneValue.substring(3, 6) + '-' + userPhoneValue.substring(6, 10);
+}
+
 
 function email_authenticate(){
     fetch(`/api/user/${userEmailInput.value}`)
@@ -78,7 +83,7 @@ function email_authenticate(){
         })
 }
 
-
+// 휴대폰 인증번호 발송하기 버튼
 function phoneNumber_authenticate(){
    fetch('/api/sms/' + userPhoneInput.value)
        .then(value => {
@@ -95,6 +100,7 @@ function phoneNumber_authenticate(){
        });
 }
 
+// 휴대폰으로 전송된 인증번호로 인증하기 버튼
 function phoneNumber_authenticate_confirm(){
     fetch(`/api/sms?authNumber=${userPhoneAuthenticateInput.value}`)
         .then(value => {

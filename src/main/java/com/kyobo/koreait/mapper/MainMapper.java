@@ -12,10 +12,6 @@ import java.util.List;
 public interface MainMapper {
     //책 정보 가져오기
     List<BookVO> get_all_books();
-    //장바구니 추가
-    boolean insert_books_in_cart(List<CartDTO> cartDTOS);
-    //찜하기
-    boolean insert_books_in_heart(List<HeartDTO> heartDTOS);
 }
 
 

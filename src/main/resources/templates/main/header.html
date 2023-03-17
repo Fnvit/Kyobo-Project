@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,7 +8,7 @@
 </head>
 <body>
     <header th:fragment="header">
-        <a href=""><img th:src="@{image/main/logo/img_logo_kyobo.png}" src="../../static/image/main/logo/img_logo_kyobo.png" alt="메인페이지로고"></a>
+        <a href="/"><img th:src="@{/image/main/logo/img_logo_kyobo.png}" src="../../static/image/main/logo/img_logo_kyobo.png" alt="메인페이지로고"></a>
         <div id="search-input">
             <input type="text" placeholder="검색어를 입력하세요" />
             <div>
@@ -18,10 +18,12 @@
         </div>
         <nav>
             <ul>
-                <!--            <th:block sec:authorize="isAuthenticated()">-->
-                <li class="user-logout"><a href="/user/logout"><i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
-                <!--            </th:block>-->
-                <li class="user-cart"><a href="/user/cart"><img th:src="@{/image/main/buttons/btn_header_cart.png}" src="../../static/image/main/buttons/btn_header_cart.png" alt=""></a></li>
+                <th:block sec:authorize="isAuthenticated()">
+                    <li class="user-logout"><a href="/user/logout"><i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
+                </th:block>
+
+                <li class="user-cart"><a href="/main/cart"><img th:src="@{/image/main/buttons/btn_header_cart.png}" src="../../static/image/main/buttons/btn_header_cart.png" alt=""></a></li>
+
                 <li class="user-mypage"><a href="/user/mypage"><img th:src="@{/image/main/buttons/btn_header_my.png}" src="../../static/image/main/buttons/btn_header_my.png" alt=""></a></li>
             </ul>
         </nav>

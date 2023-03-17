@@ -6,23 +6,6 @@
     <select id="get_all_books" resultType="com.kyobo.koreait.domain.vos.BookVO">
         SELECT * FROM `book_tbl`;
     </select>
-
-    <insert id="insert_books_in_cart" parameterType="java.util.List">
-        INSERT INTO `cart_tbl` (`userEmail`, `bookISBN`) VALUES
-        <foreach item="cartDTOS" collection="list" separator=",">
-            (#{cartDTOS.userEmail}, #{cartDTOS.bookISBN})
-        </foreach>
-        ON DUPLICATE KEY UPDATE
-        `bookCount` = `bookCount` + 1
-    </insert>
-    
-    <insert id="insert_books_in_heart" parameterType="java.util.List">
-        INSERT IGNORE INTO `heart_tbl` (`userEmail`, `bookISBN`) VALUES
-        <foreach collection="list" item="heartDTOS" separator=",">
-            (#{heartDTOS.userEmail}, #{heartDTOS.bookISBN})
-        </foreach>
-    </insert>
-
 </mapper>
 
 

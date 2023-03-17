@@ -7,10 +7,13 @@
     <meta charset="UTF-8">
     <title>장바구니 페이지</title>
     <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" th:href="@{/css/main/home.css}" href="../../static/css/main/cart.css">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+    <link rel="stylesheet" th:href="@{/css/main/cart.css}" href="../../static/css/main/cart.css">
+    <script th:src="@{/js/main/cart.js}" src="../../static/js/main/cart.js" defer></script>
 </head>
 <body>
-    <th:block th:replace="~{header :: header}"></th:block>
+    <th:block th:replace="~{/main/header :: header}"></th:block>
+    <hr>
     <main>
         <div id="order-proceed-container">
             <h2>장바구니 (<span>2</span>)</h2>
