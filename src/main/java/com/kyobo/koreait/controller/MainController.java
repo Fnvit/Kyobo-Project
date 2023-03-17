@@ -25,7 +25,7 @@ public class MainController {
     @GetMapping("/")
     public String main(){
         log.info(" ====== main페이지 ========");
-        return "/main";
+        return "/main/home";
     }
 
 

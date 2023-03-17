@@ -9,8 +9,9 @@ get_books();
 // 책 찜하기/장바구니 넣기 공통 처리 부분
 // (버튼 눌렀을 시 => 데이터 생성, 가능여부 체크)
 function insert_heart_cart_checked(userEmail, clickedBtn){
+    console.log(userEmail);
     // 로그인이 안되어있다
-    if(userEmail === 'anonymousUser'){
+    if(!userEmail){
         alert('로그인부터 하세요^-^');
     }else{
         const bookISBNArray = [];

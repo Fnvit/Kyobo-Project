@@ -7,12 +7,14 @@
     <meta charset="UTF-8">
     <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
     <title>KOREAIT KYOBO 교보문고</title>
-    <link rel="stylesheet" th:href="@{/css/main/home.css}">
     <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/main/home.css}" href="../../static/css/main/home.css">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}" href="../../static/css/main/header.css">
     <script th:src="@{/js/main.js}" defer></script>
 </head>
 <body>
-    <th:block th:replace="~{header :: header}"></th:block>
+    <th:block th:replace="~{/main/header :: header}"></th:block>
+    <hr>
     <main>
         <section id="search-result-container">
             <div>
@@ -20,7 +22,7 @@
             <div>
                 <span id="heart-all-btn" class="search-result-sub-btn" th:onclick="insert_heart_cart_checked([[${#authentication.getName()}]], this)"><i class="fa-solid fa-heart"></i></span>
                 <span id="cart-all-btn" class="search-result-sub-btn" th:onclick="insert_heart_cart_checked([[${#authentication.getName()}]], this)">
-                    <img src="../../static/image/main/buttons/btn_header_cart.png" alt="">장바구니 담기
+                    <img th:src="@{/image/main/buttons/btn_header_cart.png}" src="../../static/image/main/buttons/btn_header_cart.png" alt="">장바구니 담기
                 </span>
                 <select class="search-result-sub-btn">
                     <option value="">인기순</option>

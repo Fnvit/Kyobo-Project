@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/main/home.css}" href="../../static/css/main/header.css">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}" href="../../static/css/main/header.css">
     <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -21,11 +21,10 @@
                 <!--            <th:block sec:authorize="isAuthenticated()">-->
                 <li class="user-logout"><a href="/user/logout"><i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
                 <!--            </th:block>-->
-                <li class="user-cart"><a href="/user/cart"><img src="../../static/image/main/buttons/btn_header_cart.png" alt=""></a></li>
-                <li class="user-mypage"><a href="/user/mypage"><img src="../../static/image/main/buttons/btn_header_my.png" alt=""></a></li>
+                <li class="user-cart"><a href="/user/cart"><img th:src="@{/image/main/buttons/btn_header_cart.png}" src="../../static/image/main/buttons/btn_header_cart.png" alt=""></a></li>
+                <li class="user-mypage"><a href="/user/mypage"><img th:src="@{/image/main/buttons/btn_header_my.png}" src="../../static/image/main/buttons/btn_header_my.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
-    <hr>
 </body>
 </html>
