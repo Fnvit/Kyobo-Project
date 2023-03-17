@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyobo.koreait.mapper.UserMapper">
+    
+    <select id="get_cart" resultType="com.kyobo.koreait.domain.dtos.CartDTO">
+        SELECT CART.`no`, CART.`bookCount`, BOOK.`title`, BOOK.`price` FROM `cart_tbl` CART
+        INNER JOIN `book_tbl` BOOK
+        ON CART.bookISBN = BOOK.ISBN
+        WHERE CART.`userEmail` = #{userEmail}
+        ORDER BY CART.`no`;
+    </select>
+    
+    <insert id="insert_books_in_cart" parameterType="java.util.List">
+        INSERT INTO `cart_tbl` (`userEmail`, `bookISBN`) VALUES
+        <foreach item="cartVOS" collection="list" separator=",">
+            (#{cartVOS.userEmail}, #{cartVOS.bookISBN})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        `bookCount` = `bookCount` + 1
+    </insert>
+    
+    <update id="modify_book_count_in_cart" parameterType="com.kyobo.koreait.domain.vos.CartVO">
+        UPDATE `cart_tbl` SET `bookCount` = #{cartVO.bookCount}
+        WHERE `bookISBN` = #{cartVO.bookISBN} AND `userEmail` = #{cartVO.userEmail}
+    </update>
+
+    <insert id="insert_books_in_heart" parameterType="java.util.List">
+        INSERT IGNORE INTO `heart_tbl` (`userEmail`, `bookISBN`) VALUES
+        <foreach collection="list" item="heartDTOS" separator=",">
+            (#{heartDTOS.userEmail}, #{heartDTOS.bookISBN})
+        </foreach>
+    </insert>
+</mapper>
+
+
+
+
+
+
