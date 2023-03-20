@@ -43,6 +43,11 @@ public class UserService {
         return userMapper.modify_book_count_in_cart(cartVO);
     }
 
+    public boolean delete_book_in_cart(UserDetails userDetails, List<CartVO> cartVOS){
+        cartVOS.parallelStream().forEach(vo -> vo.setUserEmail(userDetails.getUsername()));
+        return userMapper.delete_book_in_cart(cartVOS);
+    }
+
     //찜하기
     public boolean insert_books_in_heart(UserDetails userDetails, List<HeartDTO> heartDTOS){
         heartDTOS.parallelStream().forEach(heartDTO -> heartDTO.setUserEmail(userDetails.getUsername()));

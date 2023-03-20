@@ -5,7 +5,7 @@
 <mapper namespace="com.kyobo.koreait.mapper.UserMapper">
     
     <select id="get_cart" resultType="com.kyobo.koreait.domain.dtos.CartDTO">
-        SELECT CART.`no`, CART.`bookCount`, BOOK.`title`, BOOK.`price` FROM `cart_tbl` CART
+        SELECT CART.`no`, CART.`bookISBN`, CART.`bookCount`, BOOK.`title`, BOOK.`price` FROM `cart_tbl` CART
         INNER JOIN `book_tbl` BOOK
         ON CART.bookISBN = BOOK.ISBN
         WHERE CART.`userEmail` = #{userEmail}
@@ -22,10 +22,19 @@
     </insert>
     
     <update id="modify_book_count_in_cart" parameterType="com.kyobo.koreait.domain.vos.CartVO">
-        UPDATE `cart_tbl` SET `bookCount` = #{cartVO.bookCount}
-        WHERE `bookISBN` = #{cartVO.bookISBN} AND `userEmail` = #{cartVO.userEmail}
+        UPDATE `cart_tbl` SET `bookCount` = #{bookCount}
+        WHERE `bookISBN` = #{bookISBN} AND `userEmail` = #{userEmail}
     </update>
 
+    <delete id="delete_book_in_cart" parameterType="java.util.List">
+            DELETE FROM `cart_tbl`
+        <where>
+            <foreach collection="list" item="cartVO" separator="OR">
+                (`userEmail` = #{cartVO.userEmail} AND `bookISBN` = #{cartVO.bookISBN})
+            </foreach>
+        </where>
+    </delete>
+    
     <insert id="insert_books_in_heart" parameterType="java.util.List">
         INSERT IGNORE INTO `heart_tbl` (`userEmail`, `bookISBN`) VALUES
         <foreach collection="list" item="heartDTOS" separator=",">

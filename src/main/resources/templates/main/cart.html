@@ -5,6 +5,7 @@
 >
 <head>
     <meta charset="UTF-8">
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
     <title>장바구니 페이지</title>
     <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/main/header.css}">
@@ -37,7 +38,8 @@
 
         <div id="book-cart-container">
             <section class="book-info-container">
-                <i class="fa-regular fa-circle-check"></i>
+                <span><i class="fa-regular fa-circle-check" onclick="checkBox_click(this)"></i></span>
+                <input type="hidden" value=10 class="book-info-isbn" />
                 <img src="" alt="이미지">
                 <div class="book-info">
                     <div>titletitletitletitltitletitletitletitletitletitletitle</div>
@@ -46,7 +48,7 @@
                 <div class="book-info-price-container">
                     <div><b>22222</b>원</div>
                     <div class="book-info-count-container">
-                        <i class="fa-solid fa-minus"></i>
+                        <i class="fa-solid fa-minus" onclick="modify_cart('-')"></i>
                         <input type="number" value="1">
                         <i class="fa-solid fa-plus"></i>
                     </div>

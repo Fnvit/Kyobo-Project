@@ -109,7 +109,18 @@ public class UserController {
             @RequestBody CartVO cartVO
     ){
         log.info(" ==== modify_cart ==== ");
+        log.info(cartVO);
         return userService.modify_book_count_in_cart(userDetails.getUsername(), cartVO);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/cart")
+    public boolean delete_cart(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody List<CartVO> cartVOS
+    ){
+        log.info(" delete_cart - 장바구니 삭제 ");
+        return userService.delete_book_in_cart(userDetails, cartVOS);
     }
     
     @ResponseBody

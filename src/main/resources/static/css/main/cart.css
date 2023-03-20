@@ -73,6 +73,9 @@ a{
     background-color: #EEE8;
     border-radius: 0.5em;
 }
+#cart-result-container i {
+    cursor: pointer;
+}
 
 .cart-result-sub-btn{
     border: 1px solid lightgray;
@@ -98,8 +101,9 @@ a{
     border-bottom: 1px solid black;
 }
 
-.book-info-container > i{
+.book-info-container i{
     display: inline-block;
+    cursor: pointer;
 }
 .book-info-container > img{
     display: inline-block;
