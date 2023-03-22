@@ -2,6 +2,7 @@ package com.kyobo.koreait;
 
 import com.kyobo.koreait.domain.vos.CartVO;
 import com.kyobo.koreait.domain.vos.UserVO;
+import com.kyobo.koreait.mapper.MainMapper;
 import com.kyobo.koreait.mapper.UserMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -17,19 +18,13 @@ import java.util.List;
 class KyoboProjectApplicationTests {
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    MainMapper mainMapper;
+
     @Test
     void contextLoads() {
-        CartVO vo = new CartVO();
-        vo.setUserEmail("test");
-        vo.setBookISBN("10");
-        vo.setBookCount(3);
-
-        CartVO vo3 = new CartVO();
-        vo3.setUserEmail("test");
-        vo3.setBookISBN("12");
-
-        List<CartVO> cartVOList = Arrays.asList(vo, vo3);
-        userMapper.delete_book_in_cart(cartVOList);
+        log.info(mainMapper.get_all_books_by_condition("명품"));
 
 
     }
