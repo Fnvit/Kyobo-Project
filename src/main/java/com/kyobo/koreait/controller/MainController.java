@@ -40,17 +40,13 @@ public class MainController {
 
     @ResponseBody
     @GetMapping("/main/books")
-    public List<BookVO> get_all_books(){
-        return mainService.get_all_books();
-    }
-
-    @ResponseBody
-    @GetMapping("/main/books/{searchKeyword}")
     public BookDTO get_all_books_by_condition(
-            @PathVariable String searchKeyword,
+            @RequestParam(defaultValue = "") String searchKeyword,
+            @RequestParam(defaultValue = "rating") String order,
+            @RequestParam(defaultValue = "8") int pagePerArticle,
             @RequestParam(defaultValue = "1") int nowPage
     ){
-        return mainService.get_all_books_by_condition(searchKeyword, nowPage);
+        return mainService.get_all_books_by_condition(searchKeyword, order, pagePerArticle, nowPage);
     }
 
 

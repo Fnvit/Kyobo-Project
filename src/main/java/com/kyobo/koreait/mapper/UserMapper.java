@@ -3,6 +3,7 @@ package com.kyobo.koreait.mapper;
 import com.kyobo.koreait.domain.dtos.CartDTO;
 import com.kyobo.koreait.domain.dtos.HeartDTO;
 import com.kyobo.koreait.domain.dtos.UserDTO;
+import com.kyobo.koreait.domain.vos.BookVO;
 import com.kyobo.koreait.domain.vos.CartVO;
 import com.kyobo.koreait.domain.vos.UserVO;
 import org.apache.ibatis.annotations.Insert;
@@ -32,6 +33,9 @@ public interface UserMapper {
 
     //장바구니에 있는 책들 장바구니에서 삭제하기
     boolean delete_book_in_cart(List<CartVO> cartVOS);
+
+    //현재 찜 목록 전체 가져오기
+    List<BookVO> get_books_in_heart(String userEmail);
 
     //찜하기
     boolean insert_books_in_heart(List<HeartDTO> heartDTOS);

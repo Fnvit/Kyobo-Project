@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /******************** 로그인 관련 **********************/
+    
     @GetMapping("/login")
     public void login_user_get(){
         
@@ -35,12 +38,17 @@ public class UserController {
     public String login_user_post(){
         return "redirect:/";
     }
+    
+    
+    /******************** 로그아웃 관련 **********************/
 
     @GetMapping("/logout")
     public void logout(){
         log.info(" ====== 유저 로그아웃(logout) ====== ");
     }
-    
+
+
+    /******************** 회원가입 관련 **********************/
     @GetMapping("/register")
     public void register_user(){
     }
@@ -77,12 +85,36 @@ public class UserController {
         return "redirect:/";
     }
 
+
+    /******************** 마이페이지 관련 **********************/
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/mypage")
-    public void mypage_user(){
-        log.info(" ====== mypage_user ======= ");
+    @GetMapping("/mypage/main")
+    public void mypage_main(){
+        log.info(" ====== mypage_main - 유저의 마이페이지 메인화면 ======= ");
         
     }
+    
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/mypage/heart")
+    public void mypage_heart(
+            @AuthenticationPrincipal UserDetails userDetails,
+            Model model
+    ){
+        log.info(" ====== mypage_heart - 유저의 마이페이지 - 찜 목록 화면 ======= ");
+        model.addAttribute("bookVOS", userService.get_books_in_heart(userDetails.getUsername()));
+    }
+    
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/mypage/order")
+    public void mypage_order(){
+        log.info(" ====== mypage_order - 유저의 마이페이지 - 주문/배송 메인화면 ======= ");
+
+    }
+    
+    
+    
+    /******************** 장바구니 관련 **********************/
+    
 
     @ResponseBody
     @GetMapping("/cart")
@@ -122,7 +154,8 @@ public class UserController {
         log.info(" delete_cart - 장바구니 삭제 ");
         return userService.delete_book_in_cart(userDetails, cartVOS);
     }
-    
+
+    /******************** 찜 관련 **********************/    
     @ResponseBody
     @PostMapping("/heart")
     public boolean insert_heart(

@@ -24,8 +24,6 @@ class KyoboProjectApplicationTests {
 
     @Test
     void contextLoads() {
-        log.info(mainMapper.get_all_books_by_condition("명품"));
-
 
     }
 

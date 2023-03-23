@@ -16,6 +16,7 @@
         `author` LIKE CONCAT('%', #{searchKeyword} ,'%')
         OR
         `publisher` LIKE CONCAT('%', #{searchKeyword} ,'%')
+        ORDER BY ${order}
     </select>
 </mapper>
 

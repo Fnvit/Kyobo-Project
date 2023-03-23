@@ -11,19 +11,20 @@ import java.util.List;
 @ToString
 public class BookDTO {
     private List<BookVO> bookVOS; //현재 페이지가 가지고 있는 게시물 리스트
-    private final int pagePerArticle = 8; //현재 페이지에 보여줄 게시물 개수
+    private final int pagePerArticle; //현재 페이지에 보여줄 게시물 개수
     private int allPageCount; //전체 페이지 개수
     private int startArticleCount; //현재 페이지에서 최상위 번호
     private int nowPage;
     private int minPage; //현재 페이지에서 보여줄 최소 페이지 번호
     private int maxPage; //현재 페이지에서 보여줄 최대 페이지 번호
-    private final int pageRange = 3; //현재 페이지에 보여줄 페이지 개수
+    private int pageRange = 3; //현재 페이지에 보여줄 페이지 개수
 
-    public BookDTO(List<BookVO> bookVOS, int nowPage) {
+    public BookDTO(List<BookVO> bookVOS, int pagePerArticle, int nowPage) {
+        this.pagePerArticle = pagePerArticle;
         this.nowPage = nowPage;
         int allArticleCount = bookVOS.size();
         this.startArticleCount = allArticleCount - ((nowPage - 1) * pagePerArticle);
-        //22 / 3 = 7.~~
+
         int count = allArticleCount / pageRange; //7
         this.allPageCount = ((allArticleCount % pageRange) > 0) ? (count + 1) : count;
 //        maxPage = ((int) Math.ceil(nowPage / pageRange)) * pageRange;

@@ -34,6 +34,14 @@
             </foreach>
         </where>
     </delete>
+
+
+    <select id="get_books_in_heart" resultType="com.kyobo.koreait.domain.vos.BookVO">
+        SELECT BOOK.* FROM heart_tbl HEART
+        INNER JOIN `book_tbl` BOOK
+        ON BOOK.ISBN = HEART.bookISBN
+        WHERE userEmail = #{userEmail};
+    </select>
     
     <insert id="insert_books_in_heart" parameterType="java.util.List">
         INSERT IGNORE INTO `heart_tbl` (`userEmail`, `bookISBN`) VALUES

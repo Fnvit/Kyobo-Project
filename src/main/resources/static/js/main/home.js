@@ -5,7 +5,9 @@ const cartAllBtn = document.getElementById('cart-all-btn');
 const searchInputDiv = document.getElementById('search-input');
 const searchInput = searchInputDiv.querySelector('input');
 const searchBtn = searchInputDiv.lastElementChild;
-
+const searchResultOrderSelect = document.getElementById('search-result-order-select');
+const searchResultCountSelect = document.getElementById('search-result-count-select');
+const bookPagingList = document.getElementById('book-paging-list');
 
 //처음 접속 시 책 리스트를 생성함
 get_books();
@@ -60,36 +62,62 @@ function get_books(){
         .catch();
 }
 
-//키워드를 통해 책들 정보 받아오기
-function get_all_books_by_condition(searchKeyword){
-    fetch(`/main/books/${searchKeyword}`)
+// 키워드를 통해 책들 정보 받아오기
+function get_all_books_by_condition(searchKeyword, order, pagePerArticle, nowPage){
+    let URL =  `/main/books`;  //기본 URL
+    URL += '?order=' + order;                            //순서 조건
+    URL += '&pagePerArticle=' + pagePerArticle;          //페이지당 보여줄 개수
+    URL += '&nowPage=' + nowPage;                        //현재 페이지 번호
+    URL = searchKeyword === '' ? URL : URL + '&searchKeyword=' + searchKeyword;  //검색키워드
+
+    fetch(URL)
         .then(value => value.json())
-        .then(value => { create_book_list(value); })
+        .then(value => {
+            create_book_list(value);
+            create_list_of_paging(value);
+        })
         .catch(reason => {})
 }
 
-//　책 리스트를 생성하는 메소드
-function create_book_list(bookList){
-    console.log(bookList)
-    // bookResultContainer.innerHTML = '';
-    // for(book of bookList){
-    //     bookResultContainer.insertAdjacentHTML('beforeend',
-    //         '<div class="book-info-container">\n' +
-    //         `<input type="hidden" class="book-info-isbn" value="${book.isbn}">` +
-    //         '                <span><input class="book-info-check" type="checkbox"></span>\n' +
-    //         '                <img src="" alt="상품이미지">\n' +
-    //         `                <a href="/main/details/${book.isbn}" class="book-info-title">${book.title}</a>\n` +
-    //         '                <span>\n' +
-    //         `                    <a href="#">${book.author}</a>\n` +
-    //         '                     *\n' +
-    //         `                    <a href="#">${book.publisher}</a>\n` +
-    //         '                </span>\n' +
-    //         `                <span>${book.price}원</span>\n` +
-    //         '                <span><input class="book-info-heart" type="button" value="하트"></span>\n' +
-    //         '            </div>');
-    // }
+// 책 리스트를 생성하는 메소드
+function create_book_list(bookObject){
+    bookResultContainer.innerHTML = '';
+    for(book of bookObject.bookVOS){
+        bookResultContainer.insertAdjacentHTML('beforeend',
+            '<div class="book-info-container">\n' +
+            `<input type="hidden" class="book-info-isbn" value="${book.isbn}">` +
+            '                <span><input class="book-info-check" type="checkbox"></span>\n' +
+            '                <img src="" alt="상품이미지">\n' +
+            `                <a href="/main/details/${book.isbn}" class="book-info-title">${book.title}</a>\n` +
+            '                <span>\n' +
+            `                    <a href="#">${book.author}</a>\n` +
+            '                     *\n' +
+            `                    <a href="#">${book.publisher}</a>\n` +
+            '                </span>\n' +
+            `                <span>${book.price}원</span>\n` +
+            '                <span><input class="book-info-heart" type="button" value="하트"></span>\n' +
+            '            </div>');
+    }
 }
 
+// 전체 페이지 번호 리스트를 생성하는 메소드
+function create_list_of_paging(bookObject){
+    console.log(bookObject)
+    bookPagingList.innerHTML = '';
+    for(let i = bookObject.minPage; i < bookObject.maxPage; i++){
+        if(i === bookObject.nowPage){
+            bookPagingList.insertAdjacentHTML('beforeend',
+                `<li onclick="book_page_li_clicked(this)"><b>${i}</b></li></>`
+            );
+        }else {
+            bookPagingList.insertAdjacentHTML('beforeend',
+                `<li onclick="book_page_li_clicked(this)">${i}</li>`
+            );
+        }
+    }
+}
+
+// 키워드 입력 후 엔터 눌렀을 시 동작
 searchInput.onkeydown = event => {
     if(event.key === 'Enter'){
         if(searchInput.value.trim() === ''){
@@ -97,11 +125,44 @@ searchInput.onkeydown = event => {
             //모든 책 리스트를 가져오도록 함
             get_books();
         }else{
+            const keyword = searchInput.value;              //키워드
+            const order =  searchResultOrderSelect.value    //정렬순서
+            const pagePerArticle = searchResultCountSelect.value;   //한페이지당 개수
             //검색어를 제대로 입력하고 엔터키 눌렀을 시 서버에 해당 데이터를 요청함
-            get_all_books_by_condition(searchInput.value);
+            get_all_books_by_condition(keyword, order, pagePerArticle, 1);
         }
     }
 }
+
+// 정렬 순서 셀렉 박스 클릭 시 동작
+searchResultOrderSelect.onchange = () => {
+    const keyword = searchInput.value;              //키워드
+    const order =  searchResultOrderSelect.value    //정렬순서
+    const pagePerArticle = searchResultCountSelect.value;   //한페이지당 개수
+    //검색어를 제대로 입력하고 엔터키 눌렀을 시 서버에 해당 데이터를 요청함
+    get_all_books_by_condition(keyword, order, pagePerArticle, 1);
+}
+
+// 표시 개수 셀렉 박스 클릭 시 동작
+searchResultCountSelect.onchange = () => {
+    const keyword = searchInput.value;              //키워드
+    const order =  searchResultOrderSelect.value    //정렬순서
+    const pagePerArticle = searchResultCountSelect.value;   //한페이지당 개수
+    //검색어를 제대로 입력하고 엔터키 눌렀을 시 서버에 해당 데이터를 요청함
+    get_all_books_by_condition(keyword, order, pagePerArticle, 1);
+}
+
+// 페이지 번호 눌렀을 때 동작 (누른 li)
+function book_page_li_clicked(li){
+    const keyword = searchInput.value;              //키워드
+    const order =  searchResultOrderSelect.value    //정렬순서
+    const pagePerArticle = searchResultCountSelect.value;   //한페이지당 개수
+    const nowPage = li.textContent;
+    get_all_books_by_condition(keyword, order, pagePerArticle, nowPage);
+}
+
+
+
 
 
 

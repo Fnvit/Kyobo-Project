@@ -24,14 +24,14 @@
                 <span id="cart-all-btn" class="search-result-sub-btn" th:onclick="insert_heart_cart_checked([[${#authentication.getName()}]], this)">
                     <img th:src="@{/image/main/buttons/btn_header_cart.png}" src="../../static/image/main/buttons/btn_header_cart.png" alt="">장바구니 담기
                 </span>
-                <select class="search-result-sub-btn">
-                    <option value="">인기순</option>
-                    <option value="">판매량순</option>
+                <select id="search-result-order-select" class="search-result-sub-btn">
+                    <option value="rating" selected>인기순</option>
+                    <option value="orderCount">판매량순</option>
                     <option value="">최신순</option>
-                    <option value="">상품명순</option>
+                    <option value="title">상품명순</option>
                 </select>
-                <select class="search-result-sub-btn">
-                    <option value="8">8개씩 보기</option>
+                <select id="search-result-count-select" class="search-result-sub-btn">
+                    <option value="8" selected>8개씩 보기</option>
                     <option value="12">12개씩 보기</option>
                     <option value="16">16개씩 보기</option>
                 </select>
@@ -52,16 +52,8 @@
 <!--                <span><input class="book-info-heart" type="button" value="하트"></span>-->
 <!--            </div>-->
         </section>
-        <div>
-            <span>1</span>
-            <span>1</span>
-            <span>1</span>
-            <span>1</span>
-        </div>
-
-
+        <div><ul id="book-paging-list"></ul></div>
 
     </main>
-
 </body>
 </html>

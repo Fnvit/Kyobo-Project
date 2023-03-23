@@ -2,6 +2,7 @@ package com.kyobo.koreait.service;
 
 import com.kyobo.koreait.domain.dtos.CartDTO;
 import com.kyobo.koreait.domain.dtos.HeartDTO;
+import com.kyobo.koreait.domain.vos.BookVO;
 import com.kyobo.koreait.domain.vos.CartVO;
 import com.kyobo.koreait.domain.vos.UserVO;
 import com.kyobo.koreait.mapper.UserMapper;
@@ -20,19 +21,20 @@ public class UserService {
     private UserMapper userMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
+    /********************   회원가입 관련   *******************************/
     //유저를 회원가입시키는 서비스동작
     public void register_user(UserVO userVO){
         userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
         userMapper.register_user(userVO);
     }
-    
+
+    /********************   장바구니 관련   *******************************/
     //장바구니 내용 가져오기
     public List<CartDTO> get_cart(String userEmail){
         return userMapper.get_cart(userEmail);
     }
 
-    //장바구니추가
     public boolean insert_books_in_cart(UserDetails userDetails, List<CartVO> cartVOS){
         cartVOS.parallelStream().forEach(cartDTO -> cartDTO.setUserEmail(userDetails.getUsername()));
         return userMapper.insert_books_in_cart(cartVOS);
@@ -47,12 +49,23 @@ public class UserService {
         cartVOS.parallelStream().forEach(vo -> vo.setUserEmail(userDetails.getUsername()));
         return userMapper.delete_book_in_cart(cartVOS);
     }
-
-    //찜하기
+    /********************   찜 관련   *******************************/
+    //현재 찜 목록 전체 가져오기
+    public List<BookVO> get_books_in_heart(String userEmail){
+        return userMapper.get_books_in_heart(userEmail);
+    }
+    
+    //도서 찜하기
     public boolean insert_books_in_heart(UserDetails userDetails, List<HeartDTO> heartDTOS){
         heartDTOS.parallelStream().forEach(heartDTO -> heartDTO.setUserEmail(userDetails.getUsername()));
         return userMapper.insert_books_in_heart(heartDTOS);
     }
+
+
+
+
+
+
 }
 
 
