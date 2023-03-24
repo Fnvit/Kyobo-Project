@@ -1,9 +1,15 @@
 const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
+//선택관련
 const selectAllBtn = document.getElementById('cart-result-container').querySelector('i');
+const removeAllBtn = document.getElementById('remove-all-btn');
+//장바구니관련
 const bookCartContainer = document.getElementById('book-cart-container');
 const bookInfoContainer = document.getElementsByClassName('book-info-container');
-const removeAllBtn = document.getElementById('remove-all-btn');
+//찜관련
 const heartAllBtn = document.getElementById('heart-all-btn');
+//주문/결제 관련
+const orderInfoContainer = document.getElementById('order-info-container');
+const orderProceedBtn = document.getElementById('order-proceed-btn');
 
 get_cart();
 
@@ -55,8 +61,8 @@ function delete_cart(){
 
 // 장바구니에 있는 상품들 찜하기
 function heart_cart(){
-    const containers = get_clicked_boxes();
     const body = [];
+    const containers = get_clicked_boxes();
     containers.forEach(container => {
         const isbnValue = container.querySelector('.book-info-isbn').value;
         body.push({bookISBN: isbnValue});
@@ -135,6 +141,39 @@ heartAllBtn.onclick = heart_cart;
 //전체 삭제 버튼 눌렀을 시
 removeAllBtn.onclick = delete_cart;
 
+
+/****************** 결제/주문 **********************/
+//주문하기 버튼 눌렀을 시
+orderProceedBtn.onclick = () => {
+    //주문 총액 가져오기
+    const orderTotalPrice = orderInfoContainer.querySelector('.order-total-price').textContent;
+    //서버에 넘겨줄 body 값 프레임 생성하기
+    const body = {
+        paymentVO: {paymentAmount: orderTotalPrice},
+        cartVOS: []
+    }
+    //현재 선택되어있는 ISBN값 가져오기
+    const containers = get_clicked_boxes();
+    containers.forEach(container => {
+        const isbnValue = container.querySelector('.book-info-isbn').value;
+        body.cartVOS.push({bookISBN: isbnValue});
+    });
+
+    if(body.cartVOS.length === 0) {
+        alert('상품을 하나라도 선택해주세요!');
+    }else{
+        fetch('/user/order',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken
+            },
+            body: JSON.stringify(body)})
+            .then(value => value.text())
+            .then(value => {location.href = value});
+    }
+
+}
 
 
 

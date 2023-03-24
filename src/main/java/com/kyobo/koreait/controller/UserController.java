@@ -2,6 +2,7 @@ package com.kyobo.koreait.controller;
 
 import com.kyobo.koreait.domain.dtos.CartDTO;
 import com.kyobo.koreait.domain.dtos.HeartDTO;
+import com.kyobo.koreait.domain.dtos.OrderDTO;
 import com.kyobo.koreait.domain.vos.CartVO;
 import com.kyobo.koreait.domain.vos.UserVO;
 import com.kyobo.koreait.service.UserService;
@@ -152,7 +153,7 @@ public class UserController {
             @RequestBody List<CartVO> cartVOS
     ){
         log.info(" delete_cart - 장바구니 삭제 ");
-        return userService.delete_book_in_cart(userDetails, cartVOS);
+        return userService.delete_book_in_cart(userDetails.getUsername(), cartVOS);
     }
 
     /******************** 찜 관련 **********************/    
@@ -165,9 +166,34 @@ public class UserController {
         log.info(" ===== insert_heart ===== ");
         return userService.insert_books_in_heart(userDetails, heartDTOS);
     }
-    
-    
-    
-    
+
+    /******************** 주문 관련 **********************/
+    @ResponseBody
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/order")
+    public String insert_order(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody OrderDTO orderDTO){
+        log.info(" ======== insert_order - 상품 주문하기 ======== ");
+        //현재 로그인된 유저 정보와 javascript에서 받아온 DTO객체 정보를 넘겨줌
+        boolean orderResult = userService.insert_payment_order(userDetails.getUsername(), orderDTO);
+        if(!orderResult){
+            return "/error/main";
+        }
+        return "/main/order";
+    }
+
+
+
 
 }
+
+
+
+
+
+
+
+
+
+

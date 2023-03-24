@@ -21,10 +21,24 @@
         `bookCount` = `bookCount` + 1
     </insert>
     
+    <!--    1. 장바구니에서 +1 혹은 -1을 했을 경우-->
+    <!--    2. 장바구니에서 책 개수를 직접 수정했을 경우-->
+    <!--    ==> 장바구니 개수를 화면에 보이는 숫자 그대로 설정해주면 된다-->
     <update id="modify_book_count_in_cart" parameterType="com.kyobo.koreait.domain.vos.CartVO">
         UPDATE `cart_tbl` SET `bookCount` = #{bookCount}
         WHERE `bookISBN` = #{bookISBN} AND `userEmail` = #{userEmail}
     </update>
+    
+    <!--    1. 상품 상세페이지에서 장바구니를 눌렀을 경우-->
+    <!--    2. 장바구니에 담겨있는 상품에서 몇 개만 주문/삭제 했을 경우-->
+    <!--    ==> 장바구니 개수를 설정한 개수만큼 빼거나 더해야 한다-->
+    <update id="modify_book_count_in_cart_by_count" parameterType="list">
+        UPDATE `cart_tbl` SET `bookCount` = `bookCount` + #{bookCount}
+        WHERE `bookISBN` = #{bookISBN} AND `userEmail` = #{userEmail}
+    </update>
+
+
+
 
     <delete id="delete_book_in_cart" parameterType="java.util.List">
             DELETE FROM `cart_tbl`
@@ -49,6 +63,27 @@
             (#{heartDTOS.userEmail}, #{heartDTOS.bookISBN})
         </foreach>
     </insert>
+
+    <insert id="insert_payment" parameterType="com.kyobo.koreait.domain.vos.PaymentVO">
+        INSERT INTO `payment_tbl`(`userEmail`, `paymentAmount`)
+        VALUES (#{userEmail}, #{paymentAmount})
+    </insert>
+
+    <insert id="insert_order" parameterType="list">
+        INSERT INTO `order_tbl` VALUES
+        <foreach collection="list" item="cartVO" separator=",">
+            (null, LAST_INSERT_ID(), #{cartVO.bookISBN}, #{cartVO.bookCount})
+        </foreach>
+    </insert>
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </mapper>
 
 
