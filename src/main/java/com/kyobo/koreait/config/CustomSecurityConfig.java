@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -45,12 +46,15 @@ public class CustomSecurityConfig {
                 .tokenValiditySeconds(60 * 60 * 24 * 30);
 
         http.csrf();
+
+        //카카오 로그인을 위한 로그인 페이지
+        http.oauth2Login().loginPage("/user/login");
         
         return http.build();
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder(){
         log.info(" ======== create passwordEncoder ======== ");
         return new BCryptPasswordEncoder();
     }

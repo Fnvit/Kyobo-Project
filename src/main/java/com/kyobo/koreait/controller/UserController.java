@@ -4,8 +4,10 @@ import com.kyobo.koreait.domain.dtos.CartDTO;
 import com.kyobo.koreait.domain.dtos.HeartDTO;
 import com.kyobo.koreait.domain.dtos.OrderDTO;
 import com.kyobo.koreait.domain.vos.CartVO;
+import com.kyobo.koreait.domain.vos.PaymentVO;
 import com.kyobo.koreait.domain.vos.UserVO;
 import com.kyobo.koreait.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -106,12 +108,30 @@ public class UserController {
     }
     
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/mypage/order")
-    public void mypage_order(){
+    @GetMapping("/mypage/order/main")
+    public void mypage_order_main(
+            @AuthenticationPrincipal UserDetails userDetails,
+            Model model
+    ){
         log.info(" ====== mypage_order - 유저의 마이페이지 - 주문/배송 메인화면 ======= ");
-
+        //해당 유저가 결제한 결제 내역들을 가져온다 (결제 내역만 가져오고 상세 부분은 없음)
+        List<PaymentVO> paymentVOS = userService.get_payment(userDetails.getUsername());
+        model.addAttribute("paymentVOS", paymentVOS);
     }
-    
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/mypage/order/detail/{orderNo}")
+    public String mypage_order_detail(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @PathVariable String orderNo,
+            Model model
+    ){
+        log.info(" ====== mypage_order - 유저의 마이페이지 - 주문/배송 메인화면 ======= ");
+        //해당 유저가 주문한 주문 내역들을 가져온다 (상세 주문 내역 - 책 정보도 들어있음)
+        List<CartDTO> cartDTOS = userService.get_order(orderNo);
+        model.addAttribute("cartDTOS", cartDTOS);
+        return "/user/mypage/order/detail";
+    }
     
     
     /******************** 장바구니 관련 **********************/

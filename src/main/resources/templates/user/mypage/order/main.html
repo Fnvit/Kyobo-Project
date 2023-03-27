@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
+    <title>주문/배송 목록 페이지</title>
+    <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h3>주문 내역 페이지입니다</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <td>주문번호</td>
+                <td>결제일시</td>
+                <td>총 가격</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="paymentVO : ${paymentVOS}">
+                <td><a th:href="@{/user/mypage/order/detail/} + ${paymentVO.orderNo}">[[${paymentVO.orderNo}]]</a></td>
+                <td th:text="${#dates.format(paymentVO.orderTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>[[${paymentVO.paymentAmount}]]</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+</body>
+</html>

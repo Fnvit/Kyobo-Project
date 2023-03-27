@@ -4,10 +4,7 @@ import com.kyobo.koreait.domain.dtos.CartDTO;
 import com.kyobo.koreait.domain.dtos.HeartDTO;
 import com.kyobo.koreait.domain.dtos.OrderDTO;
 import com.kyobo.koreait.domain.enums.OrderState;
-import com.kyobo.koreait.domain.vos.BookVO;
-import com.kyobo.koreait.domain.vos.CartVO;
-import com.kyobo.koreait.domain.vos.PaymentVO;
-import com.kyobo.koreait.domain.vos.UserVO;
+import com.kyobo.koreait.domain.vos.*;
 import com.kyobo.koreait.mapper.UserMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +72,13 @@ public class UserService {
     }
 
     /********************   결제/주문 관련   *******************************/
+    // 해당 유저가 결제한 결제 내역들을 가져온다 (결제 내역만 가져오고 상세 부분은 없음)
+    // 주문한 유저의 정보와, 결제일시, 총 가격, 주문 번호만 가지고 있음
+    public List<PaymentVO> get_payment(String userEmail){
+        return userMapper.get_payment(userEmail);
+    }
+
+
     //결제 내역 + 주문 내역 추가하기 (결제가 제대로 이루어졌다면 주문 내역에 추가)
     @Transactional
     public boolean insert_payment_order(String userEmail, OrderDTO orderDTO){
@@ -87,16 +91,15 @@ public class UserService {
         boolean paymentSucceed = userMapper.insert_payment(paymentVO);
         //주문 내역에 추가하기
         boolean orderSucceed = userMapper.insert_order(cartVOS);
-        //장바구니에 있는 내역 수정하기
-        boolean modifySucceed =  modify_book_count_in_cart_by_count(userEmail, cartVOS, OrderState.DELETE);
-        
-        
         //장바구니에 있는 주문 내역 삭제하기
         boolean removeSucceed = delete_book_in_cart(userEmail, cartVOS);
-                
-        return paymentSucceed && orderSucceed;
+        //최종 결과를 반환한다
+        return paymentSucceed && orderSucceed && removeSucceed;
     }
 
+    public List<CartDTO> get_order(String orderNo){
+        return userMapper.get_order(orderNo);
+    }
 
 
 }

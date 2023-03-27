@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
+    <title>Title</title>
+    <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <td>순번</td>
+            <td>책 제목</td>
+            <td>수량</td>
+            <td>가격</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cartDTO,status : ${cartDTOS}">
+                <td th:text="${status.index + 1}"></td>
+                <td>[[${cartDTO.title}]]</td>
+                <td>[[${cartDTO.bookCount}]]</td>
+                <td>[[${cartDTO.price}]]</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

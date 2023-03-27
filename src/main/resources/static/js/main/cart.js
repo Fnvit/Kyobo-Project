@@ -156,7 +156,8 @@ orderProceedBtn.onclick = () => {
     const containers = get_clicked_boxes();
     containers.forEach(container => {
         const isbnValue = container.querySelector('.book-info-isbn').value;
-        body.cartVOS.push({bookISBN: isbnValue});
+        const bookInfoCountValue = container.querySelector('.book-info-count-container').querySelector('input').value;
+        body.cartVOS.push({bookISBN: isbnValue, bookCount: bookInfoCountValue});
     });
 
     if(body.cartVOS.length === 0) {

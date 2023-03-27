@@ -38,8 +38,6 @@
     </update>
 
 
-
-
     <delete id="delete_book_in_cart" parameterType="java.util.List">
             DELETE FROM `cart_tbl`
         <where>
@@ -64,10 +62,24 @@
         </foreach>
     </insert>
 
+    <!--  결제 관련 DBMS   -->
+    <select id="get_payment" resultType="com.kyobo.koreait.domain.vos.PaymentVO">
+        SELECT * FROM `payment_tbl` WHERE `userEmail` = #{userEmail}
+    </select>
+
     <insert id="insert_payment" parameterType="com.kyobo.koreait.domain.vos.PaymentVO">
         INSERT INTO `payment_tbl`(`userEmail`, `paymentAmount`)
         VALUES (#{userEmail}, #{paymentAmount})
     </insert>
+
+    <select id="get_order" resultType="com.kyobo.koreait.domain.dtos.CartDTO">
+        SELECT `ORDER`.bookISBN, `ORDER`.bookCount, `BOOK`.title, `BOOK`.price
+        FROM `order_tbl` `ORDER`
+        INNER JOIN `book_tbl` `BOOK`
+        ON `BOOK`.ISBN = `ORDER`.bookISBN
+        WHERE `orderNo` = #{orderNo}
+        ORDER BY `no`
+    </select>
 
     <insert id="insert_order" parameterType="list">
         INSERT INTO `order_tbl` VALUES

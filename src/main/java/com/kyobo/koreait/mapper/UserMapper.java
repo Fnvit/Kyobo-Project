@@ -2,6 +2,7 @@ package com.kyobo.koreait.mapper;
 
 import com.kyobo.koreait.domain.dtos.CartDTO;
 import com.kyobo.koreait.domain.dtos.HeartDTO;
+import com.kyobo.koreait.domain.dtos.OrderDTO;
 import com.kyobo.koreait.domain.dtos.UserDTO;
 import com.kyobo.koreait.domain.vos.*;
 import org.apache.ibatis.annotations.Insert;
@@ -41,12 +42,17 @@ public interface UserMapper {
     //찜하기
     boolean insert_books_in_heart(List<HeartDTO> heartDTOS);
 
+    //결제 내역 가져오기
+    List<PaymentVO> get_payment(String userEmail);
+
     //결제 내역 추가하기
     boolean insert_payment(PaymentVO paymentVO);
-
+    
+    //주문 내역 가져오기
+    List<CartDTO> get_order(String orderNo);
+    
     //주문 내역 추가하기
     boolean insert_order(List<CartVO> cartVOS);
-
 
 
 
