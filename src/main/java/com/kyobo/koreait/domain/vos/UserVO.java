@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 
 @Data
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class UserVO {
     @NotBlank

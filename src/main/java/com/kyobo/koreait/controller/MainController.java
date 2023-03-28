@@ -26,6 +26,12 @@ public class MainController {
     private MainService mainService;
 
     @PermitAll
+    @GetMapping("/main/maptest")
+    public void maptest(){
+
+    }
+
+    @PermitAll
     @GetMapping("/")
     public String main(){
         log.info(" ====== main페이지 ========");
