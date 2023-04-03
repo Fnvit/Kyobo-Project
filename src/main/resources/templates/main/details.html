@@ -11,11 +11,15 @@
     <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div><b>제목:</b> [[${bookVO.ISBN}]]</div>
+    <div><b>이미지:</b> <img src="https://web19-kyobo-project.s3.ap-northeast-2.amazonaws.com/2/contents.jpeg" alt="없음"></div>
+    <div><b>ISBN:</b> [[${bookVO.ISBN}]]</div>
     <div><b>저자:</b>  [[${bookVO.author}]]</div>
     <div><b>출판사:</b>  [[${bookVO.publisher}]]</div>
     <div><b>소개:</b>  [[${bookVO.introduce}]]</div>
-    <div><b>내용:</b>  [[${bookVO.contents}]]</div>
+    <div><b>내용:</b>
+    <div th:each="content: ${bookVO.contents.split('\n')}">
+        <div th:text="${content}"></div>
+    </div>
     <div><b>가격:</b>  [[${bookVO.price}]]</div>
     <div><b>평가:</b>  [[${bookVO.rating}]]</div>
 </body>

@@ -7,7 +7,6 @@ import com.kyobo.koreait.domain.vos.CartVO;
 import com.kyobo.koreait.domain.vos.PaymentVO;
 import com.kyobo.koreait.domain.vos.UserVO;
 import com.kyobo.koreait.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -79,7 +78,7 @@ public class UserController {
                 || !userVO.getEmail().equals(userEmail) //인증받은 이메일과 가입할 이메일이 다르거나
                 || !userVO.getPhone().equals(phoneAuthenticatedNumber)) { //인증받은 휴대폰과 가입할 휴대폰이 다르거나
             log.info("에러!!");
-            return "/error/main";
+            return "error/main";
         }
 
         log.info(" 유저 회원가입을 시도함...");
@@ -130,7 +129,7 @@ public class UserController {
         //해당 유저가 주문한 주문 내역들을 가져온다 (상세 주문 내역 - 책 정보도 들어있음)
         List<CartDTO> cartDTOS = userService.get_order(orderNo);
         model.addAttribute("cartDTOS", cartDTOS);
-        return "/user/mypage/order/detail";
+        return "user/mypage/order/detail";
     }
     
     
@@ -198,9 +197,9 @@ public class UserController {
         //현재 로그인된 유저 정보와 javascript에서 받아온 DTO객체 정보를 넘겨줌
         boolean orderResult = userService.insert_payment_order(userDetails.getUsername(), orderDTO);
         if(!orderResult){
-            return "/error/main";
+            return "error/main";
         }
-        return "/main/order";
+        return "main/order";
     }
 
 

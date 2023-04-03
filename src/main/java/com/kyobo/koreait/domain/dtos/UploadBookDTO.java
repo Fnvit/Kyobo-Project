@@ -1,5 +1,6 @@
 package com.kyobo.koreait.domain.dtos;
 
+import com.kyobo.koreait.domain.vos.BookVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
@@ -10,6 +11,25 @@ import java.util.List;
 @Data
 @ToString
 @AllArgsConstructor
-public class UploadFileDTO {
-    private List<MultipartFile> files;
+public class UploadBookDTO {
+    private MultipartFile mainImagefile;
+    private MultipartFile contentsImagefile;
+    private BookVO bookVO;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

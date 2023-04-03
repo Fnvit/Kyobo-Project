@@ -1,30 +1,41 @@
 package com.kyobo.koreait;
 
-import com.kyobo.koreait.domain.vos.CartVO;
-import com.kyobo.koreait.domain.vos.UserVO;
-import com.kyobo.koreait.mapper.MainMapper;
-import com.kyobo.koreait.mapper.UserMapper;
+import com.kyobo.koreait.util.S3Uploader;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @Log4j2
 @SpringBootTest
 class KyoboProjectApplicationTests {
-    @Autowired
-    UserMapper userMapper;
 
     @Autowired
-    MainMapper mainMapper;
+    private S3Uploader s3Uploader;
 
     @Test
-    void contextLoads() {
-
+    public void s3_test_upload(){
+            try{
+//                //String bookISBN, String dirPath, List<String> fileNames
+//                String dirpath = "C:\\Users\\Administrator\\Desktop\\Web19 KSW\\spring files\\2";
+//                String fileNames =
+//                String uploadName = s3Uploader.upload(2, , Arrays.asList("", ""));
+//            log.info(uploadName);
+        }catch (Exception e){
+            log.info("에러 발생!");
+        }
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+

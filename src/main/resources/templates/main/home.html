@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
@@ -13,7 +11,7 @@
     <script th:src="@{/js/main/home.js}" defer></script>
 </head>
 <body>
-    <th:block th:replace="~{/main/header :: header}"></th:block>
+    <th:block th:replace="~{main/header :: header}"></th:block>
     <hr>
     <main>
         <section id="search-result-container">

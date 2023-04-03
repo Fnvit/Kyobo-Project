@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
+    <title>책 업로드 페이지</title>
+    <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <form action="/admin/upload" method="post" enctype="multipart/form-data">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      메인 이미지: <input type="file" name="mainImagefile" accept="image/*"> <br/>
+      컨텐츠 이미지: <input type="file" name="contentsImagefile" accept="image/*">
+      ISBN: <input type="text" name="bookVO.ISBN"><br/>
+      TITLE: <input type="text" name="bookVO.title"><br/>
+      AUTHOR: <input type="text" value=" " name="bookVO.author"><br/>
+      PUBLISHER: <input type="text" value=" " name="bookVO.publisher"><br/>
+      CONTENTS: <textarea value=" " name="bookVO.contents"></textarea><br/>
+      INTRODUCE: <textarea value=" " name="bookVO.introduce"></textarea><br/>
+      PRICE: <input type="number" name="bookVO.price"><br/>
+      <input type="submit" value="게시하기"><br/>
+  </form>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -5,17 +5,11 @@ import com.kyobo.koreait.domain.vos.BookVO;
 import com.kyobo.koreait.service.MainService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.security.PermitAll;
-import java.awt.print.Book;
-import java.util.List;
 
 @Log4j2
 @Controller
@@ -24,33 +18,10 @@ public class MainController {
     private MainService mainService;
 
     @PermitAll
-    @GetMapping("/main/maptest")
-    public void maptest(){
-
-    }
-
-    @Value("${com.kyobo.koreait.upload.path}")
-    private String uploadPath;
-
-    @ResponseBody
-    @PostMapping("/upload")
-    public void upload_file(UploadFileDTO uploadFileDTO){
-        if(uploadFileDTO.getFiles() != null){
-            uploadFileDTO.getFiles().forEach(multipartFile -> {
-                log.info(multipartFile.getOriginalFilename());
-            });
-        }
-    }
-
-
-
-
-
-    @PermitAll
     @GetMapping("/")
     public String main(){
         log.info(" ====== main페이지 ========");
-        return "/main/home";
+        return "main/home";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -83,11 +54,11 @@ public class MainController {
         log.info(" 가져온 책 정보 => " + bookVO);
         if(bookVO == null){
             log.info(" 해당 책 페이지가 존재하지 않음.. ");
-            return "/error/main"; //에러 페이지로 이동하도록 함
+            return "error/main"; //에러 페이지로 이동하도록 함
         }
 
         model.addAttribute("bookVO", bookVO);
-        return "/main/details";
+        return "main/details";
     }
     
     //방금 주문 내역 확인 페이지
@@ -96,6 +67,15 @@ public class MainController {
     public void order_page(){
         log.info(" ===== order_page - 주문 완료 페이지 ===== ");
     }
+    
+    
+    
+    
+    @GetMapping("/error/accessDenied")
+    public void error_accessDenied(){
+        
+    }
+    
     
     
     
